@@ -5,28 +5,11 @@ import org.testng.annotations.Test;
 
 public class LeadsTests extends BaseTest    {
 
-    @Test
-    public void positiveLeadsTest() {
-
-        String firstName = "Dima";
-        String lastName = "DimaAA";
-        int phoneNumber = 13876365;
-        String companyName = "AQA22";
-        String email = "dima@gmail.com";
-        String title = "qwerty";
-        String website = "osdvbo.com";
-        String city = "Minsk";
-        String state = "minsk";
-        int zipCode = 12345;
-        String country = "Belarus";
-        int employees = 3;
-        String annualRevenue = "$5,000";
-        String street = "Pushkin";
-        String description = "Hello world";
-        String leadStatus = "Contacted";
-        String rating = "Hot";
-        String leadSource = "In-Store";
-        String industry = "Banking";
+    @Test(dataProvider = "ExpectedLeadParameters")
+    public void positiveLeadsTest(String firstName, String lastName, int phoneNumber, String companyName, String email,
+                                  String title, String website, String city, String state, int zipCode,
+                                  String country, int employees, String annualRevenue, String street, String description,
+                                  String leadStatus, String rating, String leadSource, String industry) {
 
         loginPage.setUsername(USERNAME);
         loginPage.setPassword(PASSWORD);

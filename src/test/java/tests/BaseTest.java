@@ -59,4 +59,12 @@ public abstract class BaseTest {
     public void tearDown() {
         driver.quit();
     }
+
+    @DataProvider(name = "ExpectedLeadParameters")
+    public Object[][] leadParameters()  {
+        return new Object[][]   {
+                {"Dima", "DimaAA", 13876365, "AQA22", "dima@gmail.com", "qwerty", "osdvbo.com", "Minsk", "minsk",
+                        12345, "Belarus", 3, "$5,000", "Pushkin", "Hello world", "Contacted", "Hot", "In-Store", "Banking"},
+        };
+    }
 }
