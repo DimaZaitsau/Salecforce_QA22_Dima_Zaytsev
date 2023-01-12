@@ -37,7 +37,7 @@ public abstract class BaseTest {
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--ignore-popup-blocking");
         options.addArguments("--disable-notifications");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         testContext.setAttribute("driver", driver);
@@ -58,13 +58,5 @@ public abstract class BaseTest {
     @AfterClass(alwaysRun = true)
     public void tearDown() {
         driver.quit();
-    }
-
-    @DataProvider(name = "ExpectedLeadParameters")
-    public Object[][] leadParameters()  {
-        return new Object[][]   {
-                {"Dima", "DimaAA", 13876365, "AQA22", "dima@gmail.com", "qwerty", "osdvbo.com", "Minsk", "minsk",
-                        12345, "Belarus", 3, "$5,000", "Pushkin", "Hello world", "Contacted", "Hot", "In-Store", "Banking"},
-        };
     }
 }

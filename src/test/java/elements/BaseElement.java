@@ -6,9 +6,10 @@ import org.openqa.selenium.WebElement;
 
 public class BaseElement {
     protected WebDriver driver;
-
-    public BaseElement(WebDriver driver)    {
+    protected String label;
+    public BaseElement(WebDriver driver, String label)    {
         this.driver = driver;
+        this.label = label;
     }
 
     public void scrollIntoView(WebElement element)  {
