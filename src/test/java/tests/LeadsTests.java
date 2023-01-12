@@ -1,15 +1,14 @@
 package tests;
 
+import enums.*;
+import models.Lead;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LeadsTests extends BaseTest    {
 
-    @Test(dataProvider = "ExpectedLeadParameters")
-    public void positiveLeadsTest(String firstName, String lastName, int phoneNumber, String companyName, String email,
-                                  String title, String website, String city, String state, int zipCode,
-                                  String country, int employees, String annualRevenue, String street, String description,
-                                  String leadStatus, String rating, String leadSource, String industry) {
+    @Test
+    public void positiveLeadsTest() {
 
         loginPage.setUsername(USERNAME);
         loginPage.setPassword(PASSWORD);
@@ -18,25 +17,17 @@ public class LeadsTests extends BaseTest    {
         Assert.assertTrue(homePage.isUserIconDisplayed());
         homePage.openLeadsTub();
         leadsPage.clickNewButton();
-        newLeadModal.fillForm("Dima", "DimaAA", 13876365, "AQA22", "dima@gmail.com",
-                "qwerty", "osdvbo.com", "Minsk", "minsk", 12345, "Belarus",
-                3, "5000", "Pushkin", "Hello world", "Contacted", "Hot",
-                "In-Store", "Banking");
+
+        Lead lead = new Lead.LeadBuilder("Dima DimaAA", "QA22").setSalutation(Salutation.MS).setFirstName("Dima")
+                .setLastName("DimaAA").setLeadStatus(LeadStatus.CONTACTED).setPhone(String.valueOf(13876365)).
+                setEmail("dima@gmail.com").setTitle("qwerty").setWebsite("osdvbo.com").setCity("Minsk").setProvince("minsk")
+                .setPostalCode(String.valueOf(12345)).setCountry("Belarus").setNumberOfEmployees(String.valueOf(3))
+                .setAnnualRevenue("$5,000").setStreet("Pushkin").setDescription("Hello world").setRating(Rating.HOT)
+                .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build();
+
+        newLeadModal.fillForm(lead);
         baseModal.clickSaveButton();
         Assert.assertTrue(leadDetailsPage.isMarkStatusAsCompleteButtonPresent());
-        Assert.assertEquals(leadDetailsPage.getDescription(), description);
-        Assert.assertEquals(leadDetailsPage.getName(), firstName + " " + lastName);
-        Assert.assertEquals(leadDetailsPage.getCompany(), companyName);
-        Assert.assertEquals(leadDetailsPage.getEmail(), email);
-        Assert.assertEquals(leadDetailsPage.getTitle(), title);
-        Assert.assertEquals(leadDetailsPage.getPhone(), String.valueOf(phoneNumber));
-        Assert.assertEquals(leadDetailsPage.getEmployees(), String.valueOf(employees));
-        Assert.assertEquals(leadDetailsPage.getWebsite(), website);
-        Assert.assertEquals(leadDetailsPage.getAnnualRevenue(), annualRevenue);
-        Assert.assertEquals(leadDetailsPage.getAddress(), street + "\n" + city + ", " + state + " " + zipCode + "\n" + country);
-        Assert.assertEquals(leadDetailsPage.getLeadStatus(), leadStatus);
-        Assert.assertEquals(leadDetailsPage.getRating(), rating);
-        Assert.assertEquals(leadDetailsPage.getLeadSource(), leadSource);
-        Assert.assertEquals(leadDetailsPage.getIndustry(), industry);
+        Assert.assertEquals(leadDetailsPage.getLeadDetails(), lead);
     }
 }

@@ -6,13 +6,12 @@ import org.openqa.selenium.WebElement;
 
 public class Dropdown extends BaseElement   {
 
-    private String label;
     private final static String DROPDOWN_LOCATOR = "//label[text() = '%s']//ancestor::span//button";
-    private final static String OPEN_DROPDOWN_LOCATOR = "//lightning-base-combobox[@class='slds-combobox_container']//span[text() = '%s']";
+    private final static String OPEN_DROPDOWN_LOCATOR = "//lightning-base-combobox[@class='slds-combobox_container']" +
+            "//span[text() = '%s']";
 
     public Dropdown(WebDriver driver, String label) {
-        super(driver);
-        this.label = label;
+        super(driver, label);
     }
 
     public void setDropdownValue(String optionName)  {
