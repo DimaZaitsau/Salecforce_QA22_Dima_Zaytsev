@@ -3,7 +3,6 @@ package modals;
 import elements.Dropdown;
 import elements.Input;
 import elements.Textarea;
-import enums.*;
 import models.Lead;
 import org.openqa.selenium.WebDriver;
 
@@ -26,11 +25,11 @@ public class NewLeadModal extends BaseModal {
         new Input(driver, "AnnualRevenue").setValue(String.valueOf(lead.getAnnualRevenue()));
         new Textarea(driver, "Street").setTextareaText(lead.getStreet());
         new Textarea(driver, "Description").setTextareaText(lead.getDescription());
-        new Dropdown(driver, "Lead Status").setDropdownValue(LeadStatus.CONTACTED.getName());
-        new Dropdown(driver, "Rating").setDropdownValue(Rating.HOT.getName());
-        new Dropdown(driver, "Lead Source").setDropdownValue(LeadSource.IN_STORE.getName());
-        new Dropdown(driver, "Industry").setDropdownValue(Industry.BANKING.getName());
-        new Dropdown(driver, "Salutation").setDropdownValue(Salutation.MR.getName());
+        new Dropdown(driver, "Lead Status").setDropdownValue(lead.getLeadStatus().getName());
+        new Dropdown(driver, "Rating").setDropdownValue(lead.getRating().getName());
+        new Dropdown(driver, "Lead Source").setDropdownValue(lead.getLeadSource().getName());
+        new Dropdown(driver, "Industry").setDropdownValue(lead.getIndustry().getName());
+        new Dropdown(driver, "Salutation").setDropdownValue(lead.getSalutation().getName());
     }
 
     public NewLeadModal(WebDriver driver) {

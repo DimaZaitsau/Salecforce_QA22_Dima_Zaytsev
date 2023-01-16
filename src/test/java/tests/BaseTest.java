@@ -1,5 +1,6 @@
 package tests;
 
+import elements.Account.Dropdown;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import modals.BaseModal;
 import modals.NewLeadModal;
@@ -8,10 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import pages.HomePage;
-import pages.LeadDetailsPage;
-import pages.LeadsPage;
-import pages.LoginPage;
+import pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +26,10 @@ public abstract class BaseTest {
     protected LeadDetailsPage leadDetailsPage;
     protected NewLeadModal newLeadModal;
     protected BaseModal baseModal;
+    protected ContactsPage contactsPage;
+    protected AccountPage accountPage;
+    protected EntityBasePage entityBasePage;
+
     @BeforeClass(alwaysRun = true)
     public void setUp(ITestContext testContext) {
 
@@ -48,6 +50,9 @@ public abstract class BaseTest {
         leadDetailsPage = new LeadDetailsPage(driver);
         newLeadModal = new NewLeadModal(driver);
         baseModal = new BaseModal(driver);
+        contactsPage = new ContactsPage(driver);
+        accountPage = new AccountPage(driver);
+        entityBasePage = new EntityBasePage(driver);
     }
 
     @BeforeMethod(alwaysRun = true)

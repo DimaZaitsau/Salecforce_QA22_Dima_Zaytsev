@@ -6,7 +6,7 @@ public enum Rating {
 
     private final String name;
 
-    Rating(String name) {
+    Rating(final String name) {
         this.name = name;
     }
 

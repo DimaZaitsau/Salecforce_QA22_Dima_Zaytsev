@@ -8,9 +8,9 @@ public class Input extends BaseElement  {
 
     private final static String INPUT_LOCATOR = "//input[@name = '%s']";
 
-    public Input(WebDriver driver, String lable) {
-        super(driver, lable);
-        this.label = lable;
+    public Input(WebDriver driver, String label) {
+        super(driver, label);
+        this.label = label;
     }
 
     public void setValue(String value)  {
