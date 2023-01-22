@@ -151,15 +151,14 @@ public class Lead {
 
     @Override
     public int hashCode() {
-        return Objects.hash(fullName, phone, company,
-                email, title, website, address, numberOfEmployees, annualRevenue, description, leadStatus, rating,
-                leadSource, industry);
+        return Objects.hash(fullName, phone, company, email, title, website, address, numberOfEmployees, annualRevenue,
+                description, leadStatus, rating, leadSource, industry);
     }
 
     @Override
     public String toString() {
         return "Lead{" +
-                ", name='" + fullName + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", company='" + company + '\'' +
                 ", email='" + email + '\'' +
@@ -208,10 +207,10 @@ public class Lead {
         }
 
         public LeadBuilder(String fullName, String company, LeadStatus leadStatus)  {
-            this.fullName = fullName;
-            this.company = company;
-            this.leadStatus = leadStatus;
-        }
+                this.fullName = fullName;
+                this.company = company;
+                this.leadStatus = leadStatus;
+            }
 
         public LeadBuilder setSalutation(Salutation salutation) {
             this.salutation = salutation;
@@ -230,6 +229,11 @@ public class Lead {
 
         public LeadBuilder setIndustry(Industry industry)  {
             this.industry = industry;
+            return this;
+        }
+
+        public LeadBuilder setFirstName(String firstName)   {
+            this.firstName = firstName;
             return this;
         }
 
@@ -295,11 +299,6 @@ public class Lead {
 
         public LeadBuilder setDescription(String description)   {
             this.description = description;
-            return this;
-        }
-
-        public LeadBuilder setFirstName(String firstName)   {
-            this.firstName = firstName;
             return this;
         }
 

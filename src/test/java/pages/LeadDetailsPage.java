@@ -34,6 +34,7 @@ public class LeadDetailsPage extends HomePage   {
     }
 
     public void clickMarkStatusAsCompleteButton() {
+        scrollIntoView(driver.findElement(MARK_STATUS_AS_COMPLETE_BUTTON));
         jsClick(driver.findElement(MARK_STATUS_AS_COMPLETE_BUTTON));
     }
 

@@ -1,8 +1,9 @@
 package tests;
 
-import elements.Account.Dropdown;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import modals.BaseModal;
+import modals.NewAccountModal;
+import modals.NewContactModal;
 import modals.NewLeadModal;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class BaseTest {
 
-    protected final static String BASE_URL = "https://tmsqa222.lightning.force.com/";
-    protected final static String USERNAME = "dima-3tn7@force.com";
-    protected final static String PASSWORD = "headway91qtms";
+    protected final static String BASE_URL = "https://d2w00000oeovyean.lightning.force.com/";
+    protected final static String USERNAME = "uyraboe-cz2j@force.com";
+    protected final static String PASSWORD = "ksdgbsdFG465osn";
 
     protected WebDriver driver;
     protected LoginPage loginPage;
@@ -27,8 +28,11 @@ public abstract class BaseTest {
     protected NewLeadModal newLeadModal;
     protected BaseModal baseModal;
     protected ContactsPage contactsPage;
-    protected AccountPage accountPage;
+    protected AccountDetailsPage accountDetailsPage;
     protected EntityBasePage entityBasePage;
+    protected NewAccountModal newAccountModal;
+    protected ContactDetailsPage contactDetailsPage;
+    protected NewContactModal newContactModal;
 
     @BeforeClass(alwaysRun = true)
     public void setUp(ITestContext testContext) {
@@ -51,8 +55,11 @@ public abstract class BaseTest {
         newLeadModal = new NewLeadModal(driver);
         baseModal = new BaseModal(driver);
         contactsPage = new ContactsPage(driver);
-        accountPage = new AccountPage(driver);
+        accountDetailsPage = new AccountDetailsPage(driver);
         entityBasePage = new EntityBasePage(driver);
+        newAccountModal = new NewAccountModal(driver);
+        contactDetailsPage = new ContactDetailsPage(driver);
+        newContactModal = new NewContactModal(driver);
     }
 
     @BeforeMethod(alwaysRun = true)

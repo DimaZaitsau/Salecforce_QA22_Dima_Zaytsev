@@ -13,8 +13,8 @@ public class NewAccountModal extends BaseModal  {
         new Input(driver, "Phone").setValue(account.getPhone());
         new Input(driver, "Fax").setValue(account.getFax());
         new Input(driver, "Website").setValue(account.getWebsite());
-        new Dropdown(driver, "Type")
-        new Dropdown(driver, "Industry")
+        new Dropdown(driver, "Type").setDropdownOption(account.getType().getName());
+        new Dropdown(driver, "Industry").setDropdownOption(account.getIndustry().getName());
         new Input(driver, "Employees").setValue(account.getEmployees());
         new Input(driver, "Annual Revenue").setValue(account.getAnnualRevenue());
         new Textarea(driver, "Description").setValue(account.getDescription());

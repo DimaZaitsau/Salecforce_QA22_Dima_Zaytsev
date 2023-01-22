@@ -2,7 +2,7 @@ package enums;
 
 public enum Salutation {
 
-    MR("Mr."), MS("Ms."), MRS("Mrs."), DR("Dr."), PROF("Prof.");
+    MR("Mr."), MS("Ms."), MRS("Mrs."), DR("Dr."), PROF("Prof."), NONE("--None--");
 
     private final String name;
 

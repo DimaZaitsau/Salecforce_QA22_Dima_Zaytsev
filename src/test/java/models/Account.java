@@ -1,31 +1,38 @@
 package models;
 
-import enums.Account.Industry;
 import enums.Account.Type;
+import enums.Industry;
+import lombok.Builder;
+import lombok.Data;
 
+import java.util.Objects;
+
+@Data
+@Builder(setterPrefix = "set")
 public class Account {
+    private String accountName;
+    private String phone;
+    private String fax;
+    private String website;
+    private String employees;
+    private String annualRevenue;
+    private String description;
+    private String billingStreet;
+    private String billingCity;
+    private String billingState;
+    private String billingZip;
+    private String billingCountry;
+    private String shippingStreet;
+    private String shippingCity;
+    private String shippingState;
+    private String shippingZip;
+    private String shippingCountry;
+    private Industry industry;
+    private Type type;
+    private String billingAddress;
+    private String shippingAddress;
 
-    private final String accountName;
-    private final String phone;
-    private final String fax;
-    private final String website;
-    private final String employees;
-    private final String annualRevenue;
-    private final String description;
-    private final String billingStreet;
-    private final String billingCity;
-    private final String billingState;
-    private final String billingZip;
-    private final String billingCountry;
-    private final String shippingStreet;
-    private final String shippingCity;
-    private final String shippingState;
-    private final String shippingZip;
-    private final String shippingCountry;
-    private final Industry industry;
-    private final Type type;
-
-    private Account(AccountBuilder accountBuilder)  {
+    public Account(AccountBuilder accountBuilder) {
         this.accountName = accountBuilder.accountName;
         this.phone = accountBuilder.phone;
         this.fax = accountBuilder.fax;
@@ -45,207 +52,64 @@ public class Account {
         this.shippingCountry = accountBuilder.shippingCountry;
         this.industry = accountBuilder.industry;
         this.type = accountBuilder.type;
+        this.billingAddress = accountBuilder.billingAddress;
+        this.shippingAddress = accountBuilder.shippingAddress;
     }
 
-    public Industry industry()  {
-        return industry;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return Objects.equals(accountName, account.accountName) && Objects.equals(phone, account.phone)
+                && Objects.equals(fax, account.fax) && Objects.equals(website, account.website)
+                && Objects.equals(employees, account.employees) && Objects.equals(annualRevenue, account.annualRevenue)
+                && Objects.equals(description, account.description) && industry == account.industry && type == account.type
+                && Objects.equals(billingAddress, account.billingAddress) && Objects.equals(shippingAddress, account.shippingAddress);
     }
 
-    public Type type()  {
-        return type;
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountName, phone, fax, website, employees, annualRevenue, description, industry, type,
+                billingAddress, shippingAddress);
     }
 
-    public String getAccountName() {
-        return accountName;
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountName='" + accountName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", fax='" + fax + '\'' +
+                ", website='" + website + '\'' +
+                ", employees='" + employees + '\'' +
+                ", annualRevenue='" + annualRevenue + '\'' +
+                ", description='" + description + '\'' +
+                ", industry=" + industry +
+                ", type=" + type +
+                ", billingAddress='" + billingAddress + '\'' +
+                ", shippingAddress='" + shippingAddress + '\'' +
+                '}';
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public String getEmployees() {
-        return employees;
-    }
-
-    public String getAnnualRevenue() {
-        return annualRevenue;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getBillingStreet() {
-        return billingStreet;
-    }
-
-    public String getBillingCity() {
-        return billingCity;
-    }
-
-    public String getBillingState() {
-        return billingState;
-    }
-
-    public String getBillingZip() {
-        return billingZip;
-    }
-
-    public String getBillingCountry() {
-        return billingCountry;
-    }
-
-    public String getShippingStreet() {
-        return shippingStreet;
-    }
-
-    public String getShippingCity() {
-        return shippingCity;
-    }
-
-    public String getShippingState() {
-        return shippingState;
-    }
-
-    public String getShippingZip() {
-        return shippingZip;
-    }
-
-    public String getShippingCountry() {
-        return shippingCountry;
-    }
-
-    public static class AccountBuilder  {
-        private String accountName;
-        private String phone;
-        private String fax;
-        private String website;
-        private String employees;
-        private String annualRevenue;
-        private String description;
-        private String billingStreet;
-        private String billingCity;
-        private String billingState;
-        private String billingZip;
-        private String billingCountry;
-        private String shippingStreet;
-        private String shippingCity;
-        private String shippingState;
-        private String shippingZip;
-        private String shippingCountry;
-        private  Industry industry;
-        private  Type type;
-
-        public AccountBuilder(String accountName) {
-            this.accountName = accountName;
-        }
-
-
-
-        public AccountBuilder setIndustry(Industry industry)    {
-            this.industry = industry;
-            return this;
-        }
-
-        public AccountBuilder setType(Type type)    {
-            this.type = type;
-            return this;
-        }
-
-        public AccountBuilder setAccountName(String accountName) {
-            this.accountName = accountName;
-            return this;
-        }
-
-        public AccountBuilder setPhone(String phone) {
-            this.phone = phone;
-            return this;
-        }
-
-        public AccountBuilder setFax(String fax) {
-            this.fax = fax;
-            return this;
-        }
-
-        public AccountBuilder setWebsite(String website) {
-            this.website = website;
-            return this;
-        }
-
-        public AccountBuilder setEmployees(String employees) {
-            this.employees = employees;
-            return this;
-        }
-
-        public AccountBuilder setAnnualRevenue(String annualRevenue) {
-            this.annualRevenue = annualRevenue;
-            return this;
-        }
-
-        public AccountBuilder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public AccountBuilder setBillingStreet(String billingStreet) {
-            this.billingStreet = billingStreet;
-            return this;
-        }
-
-        public AccountBuilder setBillingCity(String billingCity) {
-            this.billingCity = billingCity;
-            return this;
-        }
-
-        public AccountBuilder setBillingState(String billingState) {
-            this.billingState = billingState;
-            return this;
-        }
-
-        public AccountBuilder setBillingZip(String billingZip) {
-            this.billingZip = billingZip;
-            return this;
-        }
-
-        public AccountBuilder setBillingCountry(String billingCountry) {
-            this.billingCountry = billingCountry;
-            return this;
-        }
-
-        public AccountBuilder setShippingStreet(String shippingStreet) {
-            this.shippingStreet = shippingStreet;
-            return this;
-        }
-
-        public AccountBuilder setShippingCity(String shippingCity) {
-            this.shippingCity = shippingCity;
-            return this;
-        }
-
-        public AccountBuilder setShippingState(String shippingState) {
-            this.shippingState = shippingState;
-            return this;
-        }
-
-        public AccountBuilder setShippingZip(String shippingZip) {
-            this.shippingZip = shippingZip;
-            return this;
-        }
-
-        public AccountBuilder setShippingCountry(String shippingCountry) {
-            this.shippingCountry = shippingCountry;
-            return this;
-        }
-
-        public Account build()  {
+    public static class AccountBuilder {
+        public Account build() {
+            if (this.billingAddress == null && this.shippingAddress == null) {
+                String billingStreet = Objects.isNull(this.billingStreet) ? "" : this.billingStreet;
+                String billingCity = Objects.isNull(this.billingCity) ? "" : this.billingCity;
+                String billingState = Objects.isNull(this.billingState) ? "" : this.billingState;
+                String billingZip = Objects.isNull(this.billingZip) ? "" : this.billingZip;
+                String billingCountry = Objects.isNull(this.billingCountry) ? "" : this.billingCountry;
+                String shippingStreet = Objects.isNull(this.shippingStreet) ? "" : this.shippingStreet;
+                String shippingCity = Objects.isNull(this.shippingCity) ? "" : this.shippingCity;
+                String shippingState = Objects.isNull(this.shippingState) ? "" : this.shippingState;
+                String shippingZip = Objects.isNull(this.shippingZip) ? "" : this.shippingZip;
+                String shippingCountry = Objects.isNull(this.shippingCountry) ? "" : this.shippingCountry;
+                this.billingAddress = (billingStreet + "\n" + billingCity + ", " + billingState + " " + billingZip + "\n" +
+                        billingCountry).trim();
+                this.shippingAddress = (shippingStreet + "\n" + shippingCity + ", " + shippingState + " " + shippingZip + "\n" +
+                        shippingCountry).trim();
+                return new Account(this);
+            }
             return new Account(this);
         }
     }

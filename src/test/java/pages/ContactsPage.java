@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ContactsPage extends BasePage  {
 
-    private final static String CONTACTS_NAME_LOCATOR = "//a[text()='%s']";
+    private final static String CONTACTS_NAME_LOCATOR = "//span/a[text()='%s']";
 
     public ContactsPage(WebDriver driver) {
         super(driver);
