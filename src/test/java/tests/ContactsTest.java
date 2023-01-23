@@ -1,6 +1,5 @@
 package tests;
 
-import com.github.javafaker.Faker;
 import enums.LeadSource;
 import enums.Salutation;
 import models.Contact;
@@ -11,7 +10,7 @@ public class ContactsTest extends BaseTest  {
 
     @Test
     public void positiveContactsTest()  {
-        Faker faker = new Faker();
+
         loginPage.setUsername(USERNAME);
         loginPage.setPassword(PASSWORD);
         loginPage.clickLoginButton();

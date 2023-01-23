@@ -1,5 +1,6 @@
 package tests;
 
+import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import modals.BaseModal;
 import modals.NewAccountModal;
@@ -33,6 +34,7 @@ public abstract class BaseTest {
     protected NewAccountModal newAccountModal;
     protected ContactDetailsPage contactDetailsPage;
     protected NewContactModal newContactModal;
+    Faker faker = new Faker();
 
     @BeforeClass(alwaysRun = true)
     public void setUp(ITestContext testContext) {

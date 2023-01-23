@@ -1,6 +1,5 @@
 package tests;
 
-import com.github.javafaker.Faker;
 import enums.*;
 import models.Lead;
 import org.testng.Assert;
@@ -17,7 +16,7 @@ public class LeadsTests extends BaseTest    {
     }
 
     @Test(dataProvider = "LeadData")
-    public void positiveLeadsTest(Lead lead) {
+    public void positiveLeadsTest(Lead lead) throws InterruptedException {
 
         loginPage.setUsername(USERNAME);
         loginPage.setPassword(PASSWORD);
@@ -36,14 +35,16 @@ public class LeadsTests extends BaseTest    {
         baseModal.clickConvertButton();
         baseModal.waitGoToLeadButtonIsDisplay();
         baseModal.clickGoToLeadButton();
-        entityBasePage.waitNewButtonIsDisplay();
+        Thread.sleep(3000);
         homePage.openContactsTub();
-        contactsPage.isContactNamePresent(lead.getPhone());
+        Thread.sleep(3000);
+        entityBasePage.clickRefreshButton();
+        contactsPage.waitUpdateTextInDisplay();
+        Assert.assertEquals(contactsPage.getContactPhone(), lead.getPhone());
     }
 
     @DataProvider(name = "LeadData")
     public Object[][] testLeadData()   {
-        Faker faker = new Faker();
         return new Lead[][]  {
                 {new Lead.LeadBuilder
                         ("Dima", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.MR)
@@ -64,7 +65,7 @@ public class LeadsTests extends BaseTest    {
                         .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build()},
 
                 {new Lead.LeadBuilder
-                        ("Tolik", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.NONE)
+                        ("Tolik", LeadStatus.UNQUALIFIED, faker.company().name())
                         .setFirstName(faker.name().firstName()).setPhone(String.valueOf(faker.phoneNumber().phoneNumber()))
                         .setEmail("dima@gmail.com").setTitle("qwerty").setWebsite(faker.internet().domainName())
                         .setCity(faker.address().city()).setProvince(faker.address().state()).setPostalCode(String.valueOf(12345))
