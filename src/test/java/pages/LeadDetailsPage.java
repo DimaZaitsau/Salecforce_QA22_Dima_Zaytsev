@@ -4,7 +4,6 @@ import elements.RecordLayoutItem;
 import enums.*;
 import models.Lead;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class LeadDetailsPage extends HomePage   {
@@ -36,15 +35,6 @@ public class LeadDetailsPage extends HomePage   {
     public void clickMarkStatusAsCompleteButton() {
         scrollIntoView(driver.findElement(MARK_STATUS_AS_COMPLETE_BUTTON));
         jsClick(driver.findElement(MARK_STATUS_AS_COMPLETE_BUTTON));
-    }
-
-    public boolean isMarkStatusAsCompleteButtonPresent()    {
-        try {
-            driver.findElement(MARK_STATUS_AS_COMPLETE_BUTTON);
-        } catch (NoSuchElementException ex) {
-            return false;
-        }
-        return true;
     }
 
     public void waitMarkStatusAsCompleteButtonIsDisplay()   {

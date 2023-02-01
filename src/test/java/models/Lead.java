@@ -210,7 +210,7 @@ public class Lead {
                 this.fullName = fullName;
                 this.company = company;
                 this.leadStatus = leadStatus;
-            }
+        }
 
         public LeadBuilder setSalutation(Salutation salutation) {
             this.salutation = salutation;
@@ -312,8 +312,8 @@ public class Lead {
                 String province = Objects.isNull(this.province) ? "" : this.province;
                 String postalCode = Objects.isNull(this.postalCode) ? "" : this.postalCode;
                 String country = Objects.isNull(this.country) ? "" : this.country;
-                this.address = (street + "\n" + city + ", " + province + " " + postalCode + "\n" + country).trim();
-                this.fullName = (salutation + " " + firstName + " " + lastName).trim();
+                this.address = (street + "\n" + city + ", " + province + " " + postalCode + "\n" + country).trim().replace("  ", " ");
+                this.fullName = (salutation + " " + firstName + " " + lastName).trim().replace("  ", " ");
                 return new Lead(this);
             }
             return new Lead(this);

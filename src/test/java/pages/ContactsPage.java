@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class ContactsPage extends BasePage  {
@@ -12,15 +11,6 @@ public class ContactsPage extends BasePage  {
 
     public ContactsPage(WebDriver driver) {
         super(driver);
-    }
-
-    public boolean isContactNamePresent()  {
-        try {
-            driver.findElement(By.xpath(String.format(CONTACTS_PHONE_LOCATOR)));
-        } catch (NoSuchElementException ex) {
-            return false;
-        }
-        return true;
     }
 
     public String getContactPhone()   {

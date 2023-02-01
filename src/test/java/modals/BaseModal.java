@@ -6,26 +6,16 @@ import pages.BasePage;
 
 public class BaseModal extends BasePage {
 
-    private final static By SAVE_BUTTON = By.xpath("//button[@class='slds-button slds-button_brand']");
-    private final static By SAVE_AND_NUW_BUTTON = By.name("SaveAndNew");
-    private final static By CANCEL_BUTTON = By.name("CancelEdit");
+    protected By SAVE_BUTTON = By.xpath("//button[@class='slds-button slds-button_brand']");
     private final static By CONVERT_BUTTON = By.xpath("//button[@class='slds-button slds-button_brand']");
-    private final static By GO_TO_LEAD_BUTTON = By.xpath("//button[@class='slds-button slds-button_brand']");
+    private final static By GO_TO_LEAD_BUTTON = By.xpath("//button[text()='Go to Leads']");
 
     public BaseModal(WebDriver driver) {
         super(driver);
     }
 
-    public void clickSaveButton()   {
+    public void clickSaveButton() {
         driver.findElement(SAVE_BUTTON).click();
-    }
-
-    public void clickSAveAndNuwButton() {
-        driver.findElement(SAVE_AND_NUW_BUTTON).click();
-    }
-
-    public void clickCancelButton() {
-        driver.findElement(CANCEL_BUTTON).click();
     }
 
     public void clickConvertButton()    {

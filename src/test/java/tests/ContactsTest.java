@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class ContactsTest extends BaseTest  {
 
     @Test
-    public void positiveContactsTest()  {
+    public void positiveContactsTest() {
 
         loginPage.setUsername(USERNAME);
         loginPage.setPassword(PASSWORD);

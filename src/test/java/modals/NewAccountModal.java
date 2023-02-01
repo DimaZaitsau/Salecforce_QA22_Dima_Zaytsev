@@ -9,8 +9,11 @@ import org.openqa.selenium.WebDriver;
 
 public class NewAccountModal extends BaseModal  {
 
-    private final static By ACCOUNT_SAVE_BUTTON = By.xpath("//button" +
-            "[@class='slds-button slds-button--neutral uiButton--brand uiButton forceActionButton']");
+    public NewAccountModal(WebDriver driver) {
+        super(driver);
+        this.SAVE_BUTTON = By.xpath("//button" +
+                "[@class='slds-button slds-button--neutral uiButton--brand uiButton forceActionButton']");
+    }
 
     public void fillForm(Account account)   {
         new Input(driver, "Account Name").setValue(account.getAccountName());
@@ -32,19 +35,5 @@ public class NewAccountModal extends BaseModal  {
         new Input(driver, "Shipping State/Province").setAddressValue(account.getShippingState());
         new Input(driver, "Shipping Zip/Postal Code").setAddressValue(account.getShippingZip());
         new Input(driver, "Shipping Country").setAddressValue(account.getShippingCountry());
-    }
-
-    @Override
-    public void clickSaveButton()   {
-        driver.findElement(ACCOUNT_SAVE_BUTTON).click();
-    }
-
-    @Override
-    public void waitSaveButtonIsDisplay()    {
-        waitForElementDisplayed(ACCOUNT_SAVE_BUTTON);
-    }
-
-    public NewAccountModal(WebDriver driver) {
-        super(driver);
     }
 }

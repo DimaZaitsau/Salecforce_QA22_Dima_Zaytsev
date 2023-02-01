@@ -105,9 +105,9 @@ public class Account {
                 String shippingZip = Objects.isNull(this.shippingZip) ? "" : this.shippingZip;
                 String shippingCountry = Objects.isNull(this.shippingCountry) ? "" : this.shippingCountry;
                 this.billingAddress = (billingStreet + "\n" + billingCity + ", " + billingState + " " + billingZip + "\n" +
-                        billingCountry).trim();
+                        billingCountry).trim().replace("  ", " ");
                 this.shippingAddress = (shippingStreet + "\n" + shippingCity + ", " + shippingState + " " + shippingZip + "\n" +
-                        shippingCountry).trim();
+                        shippingCountry).trim().replace("  ", " ");
                 return new Account(this);
             }
             return new Account(this);

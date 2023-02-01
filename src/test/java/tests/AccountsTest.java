@@ -30,6 +30,7 @@ public class AccountsTest extends BaseTest {
                 .setShippingZip(faker.address().zipCode()).setShippingState(faker.address().state())
                 .setShippingCountry(faker.address().country()).build();
 
+        newAccountModal.clickSaveButton();
         newAccountModal.fillForm(account);
         newAccountModal.clickSaveButton();
         accountDetailsPage.waitAddButtonIsDisplay();

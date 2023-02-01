@@ -13,10 +13,6 @@ public class EntityBasePage extends HomePage    {
         driver.findElement(NEW_BUTTON).click();
     }
 
-    public void waitNewButtonIsDisplay()    {
-        waitForElementDisplayed(NEW_BUTTON);
-    }
-
     public void waitSendListEmailButtonIsDisplay()  {
         waitForElementDisplayed(SEND_LIST_EMAIL_BUTTON);
     }

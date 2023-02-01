@@ -4,11 +4,19 @@ import enums.*;
 import models.Lead;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LeadsTests extends BaseTest    {
-
+    @BeforeMethod
+    public void login() {
+        loginPage.setUsername(USERNAME);
+        loginPage.setPassword(PASSWORD);
+        loginPage.clickLoginButton();
+        homePage.waitForUserAvatarIsDisplayed();
+        Assert.assertTrue(homePage.isUserIconDisplayed());
+    }
     @AfterMethod(alwaysRun = true)
     public void logout()    {
         homePage.logout();
@@ -16,13 +24,8 @@ public class LeadsTests extends BaseTest    {
     }
 
     @Test(dataProvider = "LeadData")
-    public void positiveLeadsTest(Lead lead) throws InterruptedException {
+    public void positiveLeadsTest(Lead lead)    {
 
-        loginPage.setUsername(USERNAME);
-        loginPage.setPassword(PASSWORD);
-        loginPage.clickLoginButton();
-        homePage.waitForUserAvatarIsDisplayed();
-        Assert.assertTrue(homePage.isUserIconDisplayed());
         homePage.openLeadsTub();
         leadsPage.clickNewButton();
         baseModal.waitSaveButtonIsDisplay();
@@ -35,9 +38,10 @@ public class LeadsTests extends BaseTest    {
         baseModal.clickConvertButton();
         baseModal.waitGoToLeadButtonIsDisplay();
         baseModal.clickGoToLeadButton();
-        Thread.sleep(3000);
+        entityBasePage.clickRefreshButton();
+        contactsPage.waitUpdateTextInDisplay();
         homePage.openContactsTub();
-        Thread.sleep(3000);
+        contactsPage.waitUpdateTextInDisplay();
         entityBasePage.clickRefreshButton();
         contactsPage.waitUpdateTextInDisplay();
         Assert.assertEquals(contactsPage.getContactPhone(), lead.getPhone());
@@ -65,7 +69,7 @@ public class LeadsTests extends BaseTest    {
                         .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build()},
 
                 {new Lead.LeadBuilder
-                        ("Tolik", LeadStatus.UNQUALIFIED, faker.company().name())
+                        ("Tolik", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.MRS)
                         .setFirstName(faker.name().firstName()).setPhone(String.valueOf(faker.phoneNumber().phoneNumber()))
                         .setEmail("dima@gmail.com").setTitle("qwerty").setWebsite(faker.internet().domainName())
                         .setCity(faker.address().city()).setProvince(faker.address().state()).setPostalCode(String.valueOf(12345))
@@ -74,7 +78,7 @@ public class LeadsTests extends BaseTest    {
                         .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build()},
 
                 {new Lead.LeadBuilder
-                        ("Nikita", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.NONE)
+                        ("Nikita", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.MRS)
                         .setFirstName("").setPhone(String.valueOf(faker.phoneNumber().phoneNumber()))
                         .setEmail("dima@gmail.com").setTitle("qwerty").setWebsite(faker.internet().domainName())
                         .setCity(faker.address().city()).setProvince(faker.address().state()).setPostalCode(String.valueOf(12345))

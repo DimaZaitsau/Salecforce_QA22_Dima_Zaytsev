@@ -136,10 +136,10 @@ public class Contact {
                 String lastName = Objects.isNull(this.lastName) ? "" : this.lastName;
                 String accountName = Objects.isNull(this.accountName) ? "" : this.accountName;
                 this.mailingAddress = (mailingStreet + "\n" + mailingCity + ", " + mailingState + " " + mailingZip + "\n" +
-                        mailingCountry).trim();
+                        mailingCountry).trim().replace("  ", " ");
                 this.otherAddress = (otherStreet + "\n" + otherCity + ", " + otherState + " " + otherZip + "\n" +
-                        otherCountry).trim();
-                this.fullName = (salutation + " " + firstName + " " + lastName).trim();
+                        otherCountry).trim().replace("  ", " ");
+                this.fullName = (salutation + " " + firstName + " " + lastName).trim().replace("  ", " ");
                 this.accountName = ("Open " + accountName + " Preview");
                 return new Contact(this);
             }
