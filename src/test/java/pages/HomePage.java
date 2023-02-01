@@ -36,6 +36,10 @@ public class HomePage extends BasePage  {
         driver.findElement(LOGOUT_BUTTON).click();
     }
 
+    public void browserRefresh()    {
+        driver.navigate().refresh();
+    }
+
     public boolean isUserIconDisplayed()  {
         return driver.findElement(USER_ICON).isDisplayed();
     }

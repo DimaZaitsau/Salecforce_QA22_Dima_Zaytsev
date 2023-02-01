@@ -9,7 +9,7 @@ public class Search extends BaseElement {
 
     private final static String INPUT_SEARCH = "//label[text()='%s']//ancestor::lightning-grouped-combobox" +
             "//lightning-base-combobox//input";
-    private final static String ACCOUNT_NAME_SEARCH = "//span[@title = 'Emiko Mann']";
+    private final static String ACCOUNT_NAME_SEARCH = "//span[@title = 'QA22']";
 
     public Search(WebDriver driver, String label) {
         super(driver, label);
