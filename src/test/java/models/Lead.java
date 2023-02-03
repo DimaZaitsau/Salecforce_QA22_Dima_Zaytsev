@@ -13,7 +13,7 @@ public class Lead {
     private final String province;
     private final String postalCode;
     private final String country;
-    private final String name;
+    private final String fullName;
     private final String phone;
     private final String company;
     private final String email;
@@ -38,7 +38,7 @@ public class Lead {
         this.province = leadBuilder.province;
         this.postalCode = leadBuilder.postalCode;
         this.country = leadBuilder.country;
-        this.name = leadBuilder.name;
+        this.fullName = leadBuilder.fullName;
         this.phone = leadBuilder.phone;
         this.company = leadBuilder.company;
         this.email = leadBuilder.email;
@@ -115,10 +115,6 @@ public class Lead {
         return website;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
     public String getNumberOfEmployees() {
         return numberOfEmployees;
     }
@@ -129,10 +125,6 @@ public class Lead {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getCompany() {
@@ -148,36 +140,25 @@ public class Lead {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lead lead = (Lead) o;
-        return Objects.equals(firstName, lead.firstName) && Objects.equals(lastName, lead.lastName)
-                && Objects.equals(street, lead.street) && Objects.equals(city, lead.city)
-                && Objects.equals(province, lead.province) && Objects.equals(postalCode, lead.postalCode)
-                && Objects.equals(country, lead.country) && Objects.equals(name, lead.name) && Objects.equals(phone, lead.phone)
+        return Objects.equals(fullName, lead.fullName) && Objects.equals(phone, lead.phone)
                 && Objects.equals(company, lead.company) && Objects.equals(email, lead.email) && Objects.equals(title, lead.title)
                 && Objects.equals(website, lead.website) && Objects.equals(address, lead.address)
                 && Objects.equals(numberOfEmployees, lead.numberOfEmployees) && Objects.equals(annualRevenue, lead.annualRevenue)
                 && Objects.equals(description, lead.description) && Objects.equals(leadStatus, lead.leadStatus)
                 && Objects.equals(rating, lead.rating) && Objects.equals(leadSource, lead.leadSource)
-                && Objects.equals(industry, lead.industry) && Objects.equals(salutation, lead.salutation);
+                && Objects.equals(industry, lead.industry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, street, city, province, postalCode, country, name, phone, company,
-                email, title, website, address, numberOfEmployees, annualRevenue, description, leadStatus, rating,
-                leadSource, industry, salutation);
+        return Objects.hash(fullName, phone, company, email, title, website, address, numberOfEmployees, annualRevenue,
+                description, leadStatus, rating, leadSource, industry);
     }
 
     @Override
     public String toString() {
         return "Lead{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", province='" + province + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", country='" + country + '\'' +
-                ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", company='" + company + '\'' +
                 ", email='" + email + '\'' +
@@ -191,7 +172,6 @@ public class Lead {
                 ", rating='" + rating + '\'' +
                 ", leadSource='" + leadSource + '\'' +
                 ", industry='" + industry + '\'' +
-                ", salutation='" + salutation + '\'' +
                 '}';
     }
 
@@ -204,7 +184,7 @@ public class Lead {
         private String province;
         private String postalCode;
         private String country;
-        private String name;
+        private String fullName;
         private String phone;
         private String company;
         private String email;
@@ -220,18 +200,20 @@ public class Lead {
         private Industry industry;
         private Salutation salutation;
 
-
-        public LeadBuilder(String name, String company)    {
-            this.name = name;
+        public LeadBuilder(String lastName, LeadStatus leadStatus, String company)    {
+            this.lastName = lastName;
+            this.leadStatus = leadStatus;
             this.company = company;
+        }
+
+        public LeadBuilder(String fullName, String company, LeadStatus leadStatus)  {
+                this.fullName = fullName;
+                this.company = company;
+                this.leadStatus = leadStatus;
         }
 
         public LeadBuilder setSalutation(Salutation salutation) {
             this.salutation = salutation;
-            return this;
-        }
-        public LeadBuilder setLeadStatus(LeadStatus leadStatus) {
-            this.leadStatus = leadStatus;
             return this;
         }
 
@@ -252,11 +234,6 @@ public class Lead {
 
         public LeadBuilder setFirstName(String firstName)   {
             this.firstName = firstName;
-            return this;
-        }
-
-        public LeadBuilder setLastName(String lastName)   {
-            this.lastName = lastName;
             return this;
         }
 
@@ -326,6 +303,19 @@ public class Lead {
         }
 
         public Lead build() {
+            if (this.address == null && this.fullName == null)  {
+                String salutation = Objects.isNull(this.salutation) ? "" : this.salutation.getName();
+                String firstName = Objects.isNull(this.firstName) ? "" : this.firstName;
+                String lastName = Objects.isNull(this.lastName) ? "" : this.lastName;
+                String street = Objects.isNull(this.street) ? "" : this.street;
+                String city = Objects.isNull(this.city) ? "" : this.city;
+                String province = Objects.isNull(this.province) ? "" : this.province;
+                String postalCode = Objects.isNull(this.postalCode) ? "" : this.postalCode;
+                String country = Objects.isNull(this.country) ? "" : this.country;
+                this.address = (street + "\n" + city + ", " + province + " " + postalCode + "\n" + country).trim().replace("  ", " ");
+                this.fullName = (salutation + " " + firstName + " " + lastName).trim().replace("  ", " ");
+                return new Lead(this);
+            }
             return new Lead(this);
         }
     }

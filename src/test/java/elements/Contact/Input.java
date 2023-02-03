@@ -1,16 +1,16 @@
-package elements;
+package elements.Contact;
 
+import elements.BaseElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Input extends BaseElement  {
+public class Input extends BaseElement {
 
-    private final static String INPUT_LOCATOR = "//input[@name = '%s']";
+    private final static String INPUT_LOCATOR = "//label[text()='%s']/ancestor::lightning-input//input";
 
     public Input(WebDriver driver, String label) {
         super(driver, label);
-        this.label = label;
     }
 
     public void setValue(String value)  {

@@ -3,31 +3,88 @@ package tests;
 import enums.*;
 import models.Lead;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LeadsTests extends BaseTest    {
-
-    @Test
-    public void positiveLeadsTest() {
-
+    @BeforeMethod
+    public void login() {
         loginPage.setUsername(USERNAME);
         loginPage.setPassword(PASSWORD);
         loginPage.clickLoginButton();
         homePage.waitForUserAvatarIsDisplayed();
         Assert.assertTrue(homePage.isUserIconDisplayed());
+    }
+    @AfterMethod(alwaysRun = true)
+    public void logout()    {
+        homePage.logout();
+        loginPage.waitLoginButtonIsDisplay();
+    }
+
+    @Test(dataProvider = "LeadData")
+    public void positiveLeadsTest(Lead lead)    {
+
         homePage.openLeadsTub();
         leadsPage.clickNewButton();
-
-        Lead lead = new Lead.LeadBuilder("Dima DimaAA", "QA22").setSalutation(Salutation.MS).setFirstName("Dima")
-                .setLastName("DimaAA").setLeadStatus(LeadStatus.CONTACTED).setPhone(String.valueOf(13876365)).
-                setEmail("dima@gmail.com").setTitle("qwerty").setWebsite("osdvbo.com").setCity("Minsk").setProvince("minsk")
-                .setPostalCode(String.valueOf(12345)).setCountry("Belarus").setNumberOfEmployees(String.valueOf(3))
-                .setAnnualRevenue("$5,000").setStreet("Pushkin").setDescription("Hello world").setRating(Rating.HOT)
-                .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build();
-
+        baseModal.waitSaveButtonIsDisplay();
         newLeadModal.fillForm(lead);
         baseModal.clickSaveButton();
-        Assert.assertTrue(leadDetailsPage.isMarkStatusAsCompleteButtonPresent());
+        leadDetailsPage.waitMarkStatusAsCompleteButtonIsDisplay();
         Assert.assertEquals(leadDetailsPage.getLeadDetails(), lead);
+        leadDetailsPage.clickMarkStatusAsCompleteButton();
+        baseModal.waitConvertButtonIsDisplay();
+        baseModal.clickConvertButton();
+        baseModal.waitGoToLeadButtonIsDisplay();
+        baseModal.clickGoToLeadButton();
+        entityBasePage.clickRefreshButton();
+        contactsPage.waitUpdateTextInDisplay();
+        homePage.openContactsTub();
+        contactsPage.waitUpdateTextInDisplay();
+        entityBasePage.clickRefreshButton();
+        contactsPage.waitUpdateTextInDisplay();
+        Assert.assertEquals(contactsPage.getContactPhone(), lead.getPhone());
+    }
+
+    @DataProvider(name = "LeadData")
+    public Object[][] testLeadData()   {
+        return new Lead[][]  {
+                {new Lead.LeadBuilder
+                        ("Dima", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.MR)
+                        .setFirstName(faker.name().firstName()).setPhone(String.valueOf(faker.phoneNumber().phoneNumber()))
+                        .setEmail("dima@gmail.com").setTitle("qwerty").setWebsite(faker.internet().domainName())
+                        .setCity(faker.address().city()).setProvince(faker.address().state()).setPostalCode(String.valueOf(12345))
+                        .setCountry(faker.address().country()).setNumberOfEmployees(String.valueOf(3)).setAnnualRevenue("$5,000")
+                        .setStreet(faker.address().streetName()).setDescription("Hello world").setRating(Rating.HOT)
+                        .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build()},
+
+                {new Lead.LeadBuilder
+                        ("Petya", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.MS)
+                        .setFirstName("").setPhone(String.valueOf(faker.phoneNumber().phoneNumber()))
+                        .setEmail("dima@gmail.com").setTitle("qwerty").setWebsite(faker.internet().domainName())
+                        .setCity(faker.address().city()).setProvince(faker.address().state()).setPostalCode(String.valueOf(12345))
+                        .setCountry(faker.address().country()).setNumberOfEmployees(String.valueOf(3)).setAnnualRevenue("$5,000")
+                        .setStreet(faker.address().streetName()).setDescription("Hello world").setRating(Rating.HOT)
+                        .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build()},
+
+                {new Lead.LeadBuilder
+                        ("Tolik", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.MRS)
+                        .setFirstName(faker.name().firstName()).setPhone(String.valueOf(faker.phoneNumber().phoneNumber()))
+                        .setEmail("dima@gmail.com").setTitle("qwerty").setWebsite(faker.internet().domainName())
+                        .setCity(faker.address().city()).setProvince(faker.address().state()).setPostalCode(String.valueOf(12345))
+                        .setCountry(faker.address().country()).setNumberOfEmployees(String.valueOf(3)).setAnnualRevenue("$5,000")
+                        .setStreet(faker.address().streetName()).setDescription("Hello world").setRating(Rating.HOT)
+                        .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build()},
+
+                {new Lead.LeadBuilder
+                        ("Nikita", LeadStatus.UNQUALIFIED, faker.company().name()).setSalutation(Salutation.MRS)
+                        .setFirstName("").setPhone(String.valueOf(faker.phoneNumber().phoneNumber()))
+                        .setEmail("dima@gmail.com").setTitle("qwerty").setWebsite(faker.internet().domainName())
+                        .setCity(faker.address().city()).setProvince(faker.address().state()).setPostalCode(String.valueOf(12345))
+                        .setCountry(faker.address().country()).setNumberOfEmployees(String.valueOf(3)).setAnnualRevenue("$5,000")
+                        .setStreet(faker.address().streetName()).setDescription("Hello world").setRating(Rating.HOT)
+                        .setLeadSource(LeadSource.IN_STORE).setIndustry(Industry.BANKING).build()},
+        };
     }
 }

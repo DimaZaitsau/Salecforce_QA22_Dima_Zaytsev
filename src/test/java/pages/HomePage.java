@@ -9,6 +9,8 @@ public class HomePage extends BasePage  {
     private final static By LEADS_MENU_TAB_LOCATOR = By.xpath("//one-app-nav-bar//a[@title = 'Leads']");
     private final static By ACCOUNTS_MENU_TAB_LOCATOR = By.xpath("//one-app-nav-bar//a[@title = 'Accounts']");
     private final static By CONTACTS_MENU_TAB_LOCATOR = By.xpath("//one-app-nav-bar//a[@title = 'Contacts']");
+    private final static By LOGOUT_BUTTON = By.xpath("//a[text()='Log Out']");
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -27,6 +29,15 @@ public class HomePage extends BasePage  {
 
     public void waitForUserAvatarIsDisplayed()  {
         waitForElementDisplayed(USER_ICON);
+    }
+
+    public void logout()    {
+        driver.findElement(USER_ICON).click();
+        driver.findElement(LOGOUT_BUTTON).click();
+    }
+
+    public void browserRefresh()    {
+        driver.navigate().refresh();
     }
 
     public boolean isUserIconDisplayed()  {
